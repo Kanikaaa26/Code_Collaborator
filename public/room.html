@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeCollab - Room</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <!-- Socket.IO -->
+    <script src="/socket.io/socket.io.js"></script>
+    <!-- SimplePeer for WebRTC -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/simple-peer/9.11.1/simplepeer.min.js"></script>
+    <script src="js/theme.js"></script>
+</head>
+
+<body class="room-body">
+    <nav class="room-nav">
+        <div class="nav-left">
+            <h2 class="brand">CodeCollab</h2>
+            <div class="room-info">
+                Room: <span id="display-room-id" class="highlight"></span>
+            </div>
+            <select id="language-select" class="nav-select">
+                <option value="javascript">JavaScript</option>
+                <option value="python">Python</option>
+                <option value="cpp">C++</option>
+                <option value="java">Java</option>
+            </select>
+            <select id="theme-selector" class="nav-select">
+                <option value="light">Light Theme</option>
+                <option value="light-dark-editor">Light UI + Dark Editor</option>
+                <option value="dark">Dark Theme</option>
+                <option value="solarized-light">Solarized Light</option>
+                <option value="solarized-dark">Solarized Dark</option>
+            </select>
+        </div>
+        <div class="nav-right">
+            <button id="run-btn" class="btn primary-btn btn-small">▶ Run Code</button>
+            <div class="voice-controls">
+                <button id="voice-btn" class="btn btn-small voice-connect">📞 Join Voice</button>
+                <button id="mute-btn" class="btn btn-small hidden">🎤 Mute</button>
+                <audio id="remote-audio" autoplay></audio>
+            </div>
+            <div class="user-badge" id="user-badge">User</div>
+            <button id="leave-btn" class="btn btn-small danger-btn">Leave</button>
+        </div>
+    </nav>
+
+    <div class="main-content">
+        <!-- Editor Section -->
+        <div class="editor-container">
+            <div id="editor"></div>
+            <!-- Typing Indicator Overlay -->
+            <div id="typing-indicator" class="typing-indicator hidden">
+                <span id="typing-user"></span> is typing<span class="dots">...</span>
+            </div>
+        </div>
+
+        <!-- Right Sidebar (Chat & Output) -->
+        <div class="sidebar">
+            <div class="chat-section">
+                <div class="sidebar-header">
+                    <h3>Chat</h3>
+                </div>
+                <div id="chat-messages" class="chat-messages">
+                    <!-- Messages will appear here -->
+                </div>
+                <form id="chat-form" class="chat-input-area">
+                    <input type="text" id="chat-input" placeholder="Type a message..." required autocomplete="off">
+                    <button type="submit" class="btn primary-btn">Send</button>
+                </form>
+            </div>
+
+            <div class="output-section">
+                <div class="sidebar-header">
+                    <h3>Output</h3>
+                </div>
+                <pre id="console-output" class="console">Waiting for execution...</pre>
+            </div>
+        </div>
+    </div>
+
+    <!-- Monaco Editor Loader -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.38.0/min/vs/loader.min.js"></script>
+    <script src="js/room.js"></script>
+</body>
+
+</html>
